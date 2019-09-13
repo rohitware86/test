@@ -24,5 +24,13 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('Deploy CloudHub') { 
+            environment {
+                ANYPOINT_CREDENTIALS = credentials('ANYPOINT')
+            }
+            steps {
+                sh 'mvn deploy -P cloudhub -Dmule.version=4.2.1 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} -Danypoint.businessGroup=Mr' 
+            }
+        }
     }
 }
