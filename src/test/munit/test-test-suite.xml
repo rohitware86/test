@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="test-test-suite.xml" />
+	<munit:test name="test-test-suite-testFlowTest" doc:id="2b0ba0e1-ec02-4ed5-9196-72be5a6cc51d" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to testFlow" doc:id="c1182ec8-5945-42f8-b426-21b2067660e3" name="testFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="7b574127-3c70-4af8-afa5-fbe4acec4fc5" actual="#[payload]" expected='#["CI CD Demo"]'/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
