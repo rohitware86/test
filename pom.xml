@@ -32,7 +32,7 @@
 				          <muleVersion>${mule.version}</muleVersion> 
 				          <username>${anypoint.username}</username>
 						  <password>${anypoint.password}</password> 
-				          <applicationName>test</applicationName>
+				          <applicationName>test-mule4-rohitware</applicationName>
 				          <environment>${cloudhub.env}</environment> 
 				          <businessGroup>${anypoint.businessGroup}</businessGroup>
                       </cloudHubDeployment>
