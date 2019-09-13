@@ -27,7 +27,25 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<cloudHubDeployment>
+                           <uri>https://anypoint.mulesoft.com</uri>
+				          <muleVersion>${mule.version}</muleVersion> 
+				          <username>${anypoint.username}</username>
+						  <password>${anypoint.password}</password> 
+				          <applicationName>test</applicationName>
+				          <environment>${cloudhub.env}</environment> 
+				          <businessGroup>${anypoint.businessGroup}</businessGroup>
+                      </cloudHubDeployment>
 				</configuration>
+				<executions>
+					<execution>
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>com.mulesoft.munit.tools</groupId>
@@ -51,27 +69,6 @@
 						</formats>
 					</coverage>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<configuration>
-					<deploymentType>cloudhub</deploymentType>
-					<muleVersion>4.2.1</muleVersion>
-					<username>RohitWare_Gmail</username>
-					<password>Champ@123</password>
-					<environment>SANDBOX</environment>
-					<businessGroup>Mr</businessGroup>
-				</configuration>
-				<executions>
-					<execution>
-						<id>deploy</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
