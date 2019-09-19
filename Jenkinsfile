@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Stage 1') {
             steps {
-                echo 'Hello world!' "${Version}"
+                echo 'Hello world!'
             }
         }
         stage('Clean') { 
@@ -26,9 +26,11 @@ pipeline {
         }
         stage('Upload to nexus') {
             steps {
+                def nexus_Protocol = "${protocol}"    
+
                 nexusArtifactUploader(
                             nexusVersion: 'nexus3',
-                            protocol: 'http',
+                            protocol: nexus_Protocol,
                             nexusUrl: '127.0.0.1:8081',
                             groupId: 'com.mycompany',
                             version: '1.0.1-SNAPSHOT',
