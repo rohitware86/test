@@ -50,7 +50,7 @@ pipeline {
                             protocol: nexus_Protocol,
                             nexusUrl: '127.0.0.1:8081',
                             //groupId: 'com.mycompany',
-                            groupId: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "groupId")
+                            groupId: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "groupId"),
                             version: '1.0.1-SNAPSHOT',
                             repository: 'Mule_Hosted',
                             credentialsId: 'nexus',
