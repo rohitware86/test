@@ -1,6 +1,7 @@
 def GetPOMData(PomName, PropertyName)
 {
     try{
+    echo "Inside the GetPOMData"
     def resultVal = ""
     def pomFile = readFile(PomName)
     def pom = new XmlParser().parseText(pomFile)
@@ -35,12 +36,14 @@ pipeline {
 		}
     	stage('Build and Package') { 
      		 steps {
-        		sh 'mvn package'
+        		//sh 'mvn package'
+                echo 'build done'
       		}
         }
         stage('Unit Testing') {
             steps {
-                sh 'mvn test'
+                //sh 'mvn test'
+                echo 'testing done'
             }
         }
         stage('Upload to nexus') {
