@@ -1,4 +1,4 @@
-pipeline {
+cpipeline {
     agent any
     tools {
 		maven 'mule_maven'
@@ -22,6 +22,31 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 sh 'mvn test'
+            }
+        }
+        stage('Upload to nexus') {
+            steps {
+                nexusArtifactUploader(
+                            nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: '127.0.0.1:8081',
+                            groupId: 'com.mycompany',
+                            version: '1.0.1-SNAPSHOT',
+                            repository: 'Mule_Hosted',
+                            credentialsId: 'nexus',
+                            artifacts: [
+                                // Artifact generated such as .jar, .ear and .war files.
+                                [artifactId: 'test',
+                                classifier: '',
+                                file: '/Users/rohitware/Studio7/Contents/MacOS/it/test/target/test-1.0.1-SNAPSHOT-mule-application.jar',
+                                type: 'jar',
+                                // Lets upload the pom.xml file for additional information for Transitive dependencies
+                                //[artifactId: pom.artifactId,
+                                //classifier: '',
+                                //file: "pom.xml",
+                                //type: "pom"]
+                            ]
+                        );
             }
         }
         stage('Deploy CloudHub') { 
