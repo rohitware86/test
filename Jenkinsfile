@@ -41,7 +41,8 @@ pipeline {
                                 // Artifact generated such as .jar, .ear and .war files.
                                 [artifactId: 'test',
                                 classifier: '',
-                                file: '/Users/rohitware/Studio7/Contents/MacOS/it/test/target/test-1.0.1-SNAPSHOT-mule-application.jar',
+                                //file: '/Users/rohitware/Studio7/Contents/MacOS/it/test/target/test-1.0.1-SNAPSHOT-mule-application.jar',
+                                file: 'target/test-1.0.1-SNAPSHOT-mule-application.jar',
                                 type: 'jar']
                                 // Lets upload the pom.xml file for additional information for Transitive dependencies
                                 //[artifactId: pom.artifactId,
