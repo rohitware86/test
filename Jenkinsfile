@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+        nexus_Protocol = "${protocol}"
+    }
     tools {
 		maven 'mule_maven'
 	}
@@ -25,9 +28,7 @@ pipeline {
             }
         }
         stage('Upload to nexus') {
-            steps {
-                def nexus_Protocol = "${protocol}"    
-
+            steps {    
                 nexusArtifactUploader(
                             nexusVersion: 'nexus3',
                             protocol: nexus_Protocol,
