@@ -1,3 +1,19 @@
+def GetPOMData(PomName, PropertyName)
+{
+    try{
+    def resultVal = ""
+    def pomFile = readFile(PomName)
+    def pom = new XmlParser().parseText(pomFile)
+    def gavMap = [:]
+    resultVal =  pom[PropertyName].text().trim()
+    return resultVal
+    }catch(error)
+    {       
+        //SendEmail("Failed")
+        throw(error)
+    }
+}
+
 pipeline {
     agent any
     environment{
@@ -33,7 +49,8 @@ pipeline {
                             nexusVersion: 'nexus3',
                             protocol: nexus_Protocol,
                             nexusUrl: '127.0.0.1:8081',
-                            groupId: 'com.mycompany',
+                            //groupId: 'com.mycompany',
+                            groupId: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "groupId")
                             version: '1.0.1-SNAPSHOT',
                             repository: 'Mule_Hosted',
                             credentialsId: 'nexus',
