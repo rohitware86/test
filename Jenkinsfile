@@ -18,8 +18,8 @@ def GetPOMData(PomName, PropertyName)
 pipeline {
     agent any
     environment{
-        nexus_Protocol = "${protocol}",
-        nexus_url = "${url}",
+        nexus_Protocol = "${protocol}"
+        nexus_url = "${url}"
         nexus_repo = "${repo}"
     }
     tools {
