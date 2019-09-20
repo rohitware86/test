@@ -21,6 +21,10 @@ pipeline {
         nexus_Protocol = "${protocol}"
         nexus_url = "${url}"
         nexus_repo = "${repo}"
+        groupID = GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "groupId")
+        version = GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "version")
+        artifcatID = GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "artifactId")
+
     }
     tools {
 		maven 'mule_maven'
@@ -38,13 +42,13 @@ pipeline {
 		}
     	stage('Build and Package') { 
      		 steps {
-        		//sh 'mvn package'
+        		sh 'mvn package'
                 echo 'build done!!'
       		}
         }
         stage('Unit Testing') {
             steps {
-                //sh 'mvn test'
+                sh 'mvn test'
                 echo 'testing done'
             }
         }
@@ -55,16 +59,17 @@ pipeline {
                             protocol: nexus_Protocol,
                             nexusUrl: nexus_url,
                             //groupId: 'com.mycompany',
-                            groupId: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "groupId"),
-                            version: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "version"),
+                            groupId: groupID,
+                            version: version,
                             repository: nexus_repo,
                             credentialsId: 'nexus',
                             artifacts: [
                                 // Artifact generated such as .jar, .ear and .war files.
-                                [artifactId: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "artifactId"),
+                                [artifactId: artifcatID,
                                 //artifactId: readMavenPom().getArtifactId(),
                                 classifier: '',
-                                file: '/Users/rohitware/Studio7/Contents/MacOS/it/test/target/test-1.0.1-SNAPSHOT-mule-application.jar',
+                                //file: '/Users/rohitware/Studio7/Contents/MacOS/it/test/target/test-1.0.1-SNAPSHOT-mule-application.jar',
+                                file: "/Users/rohitware/Studio7/Contents/MacOS/it/test/target/${artifcatID}-${version}-mule-application.jar"
                                 type: 'jar']
                                 // Lets upload the pom.xml file for additional information for Transitive dependencies
                                 //[artifactId: pom.artifactId,
