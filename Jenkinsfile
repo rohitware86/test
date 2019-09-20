@@ -18,7 +18,9 @@ def GetPOMData(PomName, PropertyName)
 pipeline {
     agent any
     environment{
-        nexus_Protocol = "${protocol}"
+        nexus_Protocol = "${protocol}",
+        nexus_url = "${url}",
+        nexus_repo = "${repo}"
     }
     tools {
 		maven 'mule_maven'
@@ -37,7 +39,7 @@ pipeline {
     	stage('Build and Package') { 
      		 steps {
         		//sh 'mvn package'
-                echo 'build done'
+                echo 'build done!!'
       		}
         }
         stage('Unit Testing') {
@@ -51,15 +53,15 @@ pipeline {
                 nexusArtifactUploader(
                             nexusVersion: 'nexus3',
                             protocol: nexus_Protocol,
-                            nexusUrl: '127.0.0.1:8081',
+                            nexusUrl: nexus_url,
                             //groupId: 'com.mycompany',
                             groupId: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "groupId"),
-                            version: '1.0.1-SNAPSHOT',
-                            repository: 'Mule_Hosted',
+                            version: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "version"),
+                            repository: nexus_repo,
                             credentialsId: 'nexus',
                             artifacts: [
                                 // Artifact generated such as .jar, .ear and .war files.
-                                [artifactId: 'test',
+                                [artifactId: GetPOMData("/Users/rohitware/Studio7/Contents/MacOS/it/test/pom.xml", "artifactId"),
                                 //artifactId: readMavenPom().getArtifactId(),
                                 classifier: '',
                                 file: '/Users/rohitware/Studio7/Contents/MacOS/it/test/target/test-1.0.1-SNAPSHOT-mule-application.jar',
