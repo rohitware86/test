@@ -18,7 +18,7 @@ def GetPOMData(PomName, PropertyName)
 pipeline {
     agent any
     environment{
-        nexus_Protocol = "${protocol}"
+        //nexus_Protocol = "${protocol}"
         nexus_url = "${url}"
         nexus_repo = "${repo}"
         groupID = GetPOMData("${workspace}/${env.JOB_NAME}/pom.xml", "groupId")
@@ -30,11 +30,6 @@ pipeline {
 		maven 'mule_maven'
 	}
     stages {
-        stage('Stage 1') {
-            steps {
-                echo 'Hello world!'
-            }
-        }
         stage('Clean') { 
 			steps {
 				sh 'mvn clean'
@@ -56,7 +51,7 @@ pipeline {
             steps {    
                 nexusArtifactUploader(
                             nexusVersion: 'nexus3',
-                            protocol: nexus_Protocol,
+                            protocol: "${protocol}",
                             nexusUrl: nexus_url,
                             //groupId: 'com.mycompany',
                             groupId: groupID,
@@ -66,7 +61,6 @@ pipeline {
                             artifacts: [
                                 // Artifact generated such as .jar, .ear and .war files.
                                 [artifactId: artifcatID,
-                                //artifactId: readMavenPom().getArtifactId(),
                                 classifier: '',
                                 //file: '/Users/rohitware/Studio7/Contents/MacOS/it/test/target/test-1.0.1-SNAPSHOT-mule-application.jar',
                                 file: "${workspace}/${env.JOB_NAME}/target/${artifcatID}-${version}-mule-application.jar",
